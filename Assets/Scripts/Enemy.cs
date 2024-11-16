@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public int health; // Health of the enemy
+    public int maxHealth = 100; // Maximum health of the enemy
     public int attackRange = 1.5; // Range in which the enemy can attack
     public int attackDamage = 10; // Damage dealt to the player
     public int attackCooldown = 1; // Time between attacks
@@ -46,4 +48,34 @@ public class Enemy : MonoBehaviour
             playerScript.TakeDamage(attackDamage);
         }
     }
+
+    private void TakeDamage(int damage)
+    {
+        health -= damage;
+        Debug.Log("Enemy Health: " + health);
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Enemy has died!");
+        // Add death behavior, such as dropping loot or playing an animation
+        Destroy(gameObject);
+    }
+
+    private void onCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (playerScript != null)
+            {
+                playerScript.TakeDamage(attackDamage);
+            }
+        }
+    }
+
 }
