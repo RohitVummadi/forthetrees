@@ -6,8 +6,8 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
-    public float health = 100f;
-    public float moveSpeed;
+    public int health = 100;
+    public int moveSpeed;
     public Rigidbody2D rb2d;
     private Vector2 moveInput;
 
